@@ -92,8 +92,16 @@ app.get('/callback', function(req, res) {
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
 
+        var playlists;
+
         var options = {
           url: 'https://api.spotify.com/v1/me',
+          headers: { 'Authorization': 'Bearer ' + access_token },
+          json: true
+        };
+
+        var playlistOptions = {
+          url: 'https://api.spotify.com/v1/users/' + client_id + '/playlists',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
@@ -103,11 +111,17 @@ app.get('/callback', function(req, res) {
           console.log(body);
         });
 
+        // Obtain playlists
+        request.get(playlistOptions, function(error, response, body) {
+          console.log(body);
+        });
+
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
           querystring.stringify({
             access_token: access_token,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+            playlists: playlists
           }));
       } else {
         res.redirect('/#' +
