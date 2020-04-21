@@ -51,22 +51,22 @@ print(song_grouped)
 [9567 rows x 3 columns]
 '''
 
-#
-# # We count the number of unique users and songs in our subset of data
-# users = song_df['user_id'].unique()
-# len(users)  # return 365 unique users
-# songs = song_df['song'].unique()
-# len(songs)  # return 5151 unique songs
-#
-# # We then create a song recommender by splitting our dataset into training and testing data.
-# train_data, test_data = train_test_split(song_df, test_size=0.20, random_state=0)
-#
-# # We then used a popularity based recommender class as a blackbox to train our model.
-# pm = Recommenders.popularity_recommender_py()
-# pm.create(train_data, 'user_id', 'song')
-#
-# # User the popularity model to make some prediction
-# user_id = users[5]
-# pm.recommend(user_id)
-#
-# print(user_id)
+
+# We count the number of unique users and songs in our subset of data
+users = song_df['user_id'].unique()
+print(len(users))  # return 76353 unique users
+songs = song_df['title'].unique()
+print(len(songs))  # return 9567 unique songs
+
+# We then create a song recommender by splitting our dataset into training and testing data.
+train_data, test_data = train_test_split(song_df, test_size=0.20, random_state=0)
+
+# We then used a popularity based recommender class as a blackbox to train our model.
+pm = Recommenders.popularity_recommender_py()
+pm.create(train_data, 'user_id', 'title')
+
+# User the popularity model to make some prediction
+user_id = users[5]
+pm.recommend(user_id)
+
+print(user_id)
