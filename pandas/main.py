@@ -71,7 +71,7 @@ train_data, test_data = train_test_split(song_df, test_size=0.20, random_state=0
 
 # We then used a popularity based recommender class as a blackbox to train our model.
 pm = Recommenders.popularity_recommender_py()
-pm.create(train_data, 'user_id', 'title')
+pm.create(train_data, 'user_id', 'song')
 
 # User the popularity model to make some prediction
 user_id = users[5]
@@ -87,7 +87,7 @@ Personalized song recommendation system
 is_model = Recommenders.item_similarity_recommender_py()
 is_model.create(train_data, 'user_id', 'song')
 
-#Print the songs for the user in training data
+#Print the songs for the user in    training data
 user_id = users[5]
 user_items = is_model.get_user_items(user_id)
 #
