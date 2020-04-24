@@ -25,8 +25,11 @@ print(song_df.head())
 
 '''
 
+# We create a subset of the dataset
+song_df = song_df.head(10000)
+
 # This step is needed and is not in the example
-song_df['song'] = song_df["artist_name"] + ' - ' + song_df["title"]
+song_df['song'] = song_df['title'].map(str) + " - " + song_df['artist_name']
 
 # We select a subset of this data (the first 10,000 songs). We then merge the song and artist_name
 # into one column, aggregated by number of time a particular song is listened too in general by all users.
