@@ -1,38 +1,14 @@
 import pandas as pandas
 from sklearn.model_selection import train_test_split
 import Recommenders
+import Subset
 
-# Files we are going to work with
-triplets_file = 'https://static.turi.com/datasets/millionsong/10000.txt'
-songs_metadata_file = 'https://static.turi.com/datasets/millionsong/song_data.csv'
+# We read the subset
+song_df = pandas.read_csv('subset.csv')
 
-# Read the table of triplet_file using pandas and define the 3 columns as user_id, song_id and listen_count
-# ( df here means dataframe)
-song_df_1 = pandas.read_table(triplets_file, header=None)
-song_df_1.columns = ['user_id', 'song_id', 'listen_count']
-
-# Read the metadat_file and combine the metadata_file with triplets_file. We drop the duplicates between
-# 2 datasets using song_id
-song_df_2 = pandas.read_csv(songs_metadata_file)
-song_df = pandas.merge(song_df_1, song_df_2.drop_duplicates(['song_id']), on="song_id", how="left")
-
-'''
-print(song_df.head())
-                                    user_id             song_id  listen_count            title                        release    artist_name  year
-0  b80344d063b5ccb3212f76538f3d9e43d87dca9e  SOAKIMP12A8C130995             1         The Cove             Thicker Than Water   Jack Johnson     0
-1  b80344d063b5ccb3212f76538f3d9e43d87dca9e  SOBBMDR12A8C13253B             2  Entre Dos Aguas            Flamenco Para Niños  Paco De Lucia  1976
-2  b80344d063b5ccb3212f76538f3d9e43d87dca9e  SOBXHDL12A81C204C0             1         Stronger                     Graduation     Kanye West  2007
-
-'''
-
-# We create a subset of the dataset
-song_df = song_df.head(10000)
-
-# This step is needed and is not in the example
+# We then merge the song and artist_name into one column, aggregated by number of time a particular song
+# is listened too in general by all users.
 song_df['song'] = song_df['title'].map(str) + " - " + song_df['artist_name']
-
-# We select a subset of this data (the first 10,000 songs). We then merge the song and artist_name
-# into one column, aggregated by number of time a particular song is listened too in general by all users.
 song_grouped = song_df.groupby(['song']).agg({'listen_count': 'count'}).reset_index()
 grouped_sum = song_grouped['listen_count'].sum()
 song_grouped['percentage'] = song_grouped['listen_count'].div(grouped_sum) * 100
@@ -62,7 +38,6 @@ print(song_grouped)
 FIRST PART
 Simple song recommendation system
 '''
-
 # We count the number of unique users and songs in our subset of data
 users = song_df['user_id'].unique()
 print(len(users))  # return 76353 unique users
@@ -91,7 +66,7 @@ is_model = Recommenders.item_similarity_recommender_py()
 is_model.create(train_data, 'user_id', 'song')
 
 #Print the songs for the user in    training data
-user_id = users[5]
+user_id = users[7]
 user_items = is_model.get_user_items(user_id)
 #
 print("------------------------------------------------------------------------------------")
@@ -106,6 +81,9 @@ print("Recommendation process going on:")
 print("----------------------------------------------------------------------")
 
 #Recommend songs for the user using personalized model
-is_model.recommend(user_id)
+recommendations = is_model.recommend(user_id)
+
+# We print the recommendations
+print(recommendations)
 
 # is_model.get_similar_items(['U Smile - Justin Bieber'])
