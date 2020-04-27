@@ -4,7 +4,7 @@ import Recommenders
 import Subset
 
 # We read the subset
-song_df = pandas.read_csv('subset.csv')
+song_df = pandas.read_csv('dataset/subset.csv')
 
 # We then merge the song and artist_name into one column, aggregated by number of time a particular song
 # is listened too in general by all users.
@@ -40,9 +40,9 @@ Simple song recommendation system
 '''
 # We count the number of unique users and songs in our subset of data
 users = song_df['user_id'].unique()
-print(len(users))  # return 76353 unique users
+print(len(users))  # return 365 unique users
 songs = song_df['song'].unique()
-print(len(songs))  # return 9953 unique songs
+print(len(songs))  # return 5151 unique songs
 
 # We then create a song recommender by splitting our dataset into training and testing data.
 train_data, test_data = train_test_split(song_df, test_size=0.20, random_state=0)

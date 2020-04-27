@@ -47,4 +47,4 @@ class Subset:
         song_df = song_df.head(10000)
 
         # Export subdataset
-        song_df.to_csv(r'subset.csv', index=False, header=True)
+        song_df.to_csv(r'/dataset/subset.csv', index=False, header=True)
