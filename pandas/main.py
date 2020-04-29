@@ -3,6 +3,10 @@ from sklearn.model_selection import train_test_split
 import Recommenders
 import Subset
 
+# # Create subset
+# subset = Subset.Subset()
+# subset.createSubset(15000)
+
 # We read the subset
 song_df = pandas.read_csv('dataset/subset.csv')
 

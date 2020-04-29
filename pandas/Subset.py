@@ -2,7 +2,7 @@ import pandas
 
 class Subset:
 
-    def createSubset(self):
+    def createSubset(self, size=10000):
         triplets_file = 'https://static.turi.com/datasets/millionsong/10000.txt'
         songs_metadata_file = 'https://static.turi.com/datasets/millionsong/song_data.csv'
 
@@ -44,7 +44,7 @@ class Subset:
         '''
 
         # We create a subset of the dataset with 10k rows
-        song_df = song_df.head(10000)
+        song_df = song_df.head(size)
 
         # Export subdataset
-        song_df.to_csv(r'/dataset/subset.csv', index=False, header=True)
+        song_df.to_csv(r'dataset/subset.csv', index=False, header=True)

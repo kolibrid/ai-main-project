@@ -54,17 +54,19 @@ T1.insert(END, "Song Recommendation System")
 T1.tag_add("center", "1.0", "end")
 T1.pack()
 
-# Show songs listened by the user
+# Show songs listened by the user text
 T2 = Text(root, height=1)
 T2.tag_configure("left", justify='left')
 T2.insert(END, "The user " + user_id + " has listened to " + str(len(user_items)) + " songs.")
 T2.pack()
 
+# Show list text
 T3 = Text(root, height=1)
 T3.tag_configure("left", justify='left')
 T3.insert(END, "List of songs listened by the user:")
 T3.pack()
 
+# Create scrollable container for the list of songs since it can be long
 container = Frame(root)
 canvas = Canvas(container)
 scrollbar = Scrollbar(container, orient="vertical", command=canvas.yview)
@@ -91,11 +93,13 @@ container.pack(fill="both", expand=True)
 canvas.pack(side="left", fill="both", expand=True)
 scrollbar.pack(side="right", fill="y")
 
+# Recommended songs text
 T5 = Text(root, height=2)
 T5.tag_configure("left", justify='left')
 T5.insert(END, "Recommended songs:")
 T5.pack()
 
+# Show table with the 10 top recommendation songs
 TableMargin = Frame(root)
 TableMargin.pack(side=TOP)
 scrollbarx = Scrollbar(TableMargin, orient=HORIZONTAL)
