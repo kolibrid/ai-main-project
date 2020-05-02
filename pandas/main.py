@@ -1,18 +1,11 @@
 import pandas as pandas
 from sklearn.model_selection import train_test_split
 import Recommenders
-import Subset
-
-# # Create subset
-# subset = Subset.Subset()
-# subset.createSubset(15000)
 
 # We read the subset
 song_df = pandas.read_csv('dataset/subset.csv')
 
-# We then merge the song and artist_name into one column, aggregated by number of time a particular song
-# is listened too in general by all users.
-song_df['song'] = song_df['title'].map(str) + " - " + song_df['artist_name']
+# Aggregate by number of time a particular song is listened too in general by all users.
 song_grouped = song_df.groupby(['song']).agg({'listen_count': 'count'}).reset_index()
 grouped_sum = song_grouped['listen_count'].sum()
 song_grouped['percentage'] = song_grouped['listen_count'].div(grouped_sum) * 100
