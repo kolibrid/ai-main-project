@@ -57,8 +57,6 @@ print(song_df.head())
 2  b80344d063b5ccb3212f76538f3d9e43d87dca9e  SOBXHDL12A81C204C0             1         Stronger                     Graduation     Kanye West  2007            Stronger - Kanye West
 3  b80344d063b5ccb3212f76538f3d9e43d87dca9e  SOBYHAJ12A6701BF1D             1   Constellations              In Between Dreams   Jack Johnson  2005    Constellations - Jack Johnson
 4  b80344d063b5ccb3212f76538f3d9e43d87dca9e  SODACBL12A8C13C273             1     Learn To Fly  There Is Nothing Left To Lose   Foo Fighters  1999      Learn To Fly - Foo Fighters
-
-
 '''
 
 
