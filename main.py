@@ -1,6 +1,7 @@
 import pandas as pandas
 from sklearn.model_selection import train_test_split
 import Recommenders
+import random
 
 # We read the subset
 song_df = pandas.read_csv('dataset/subset.csv')
@@ -37,9 +38,9 @@ Simple song recommendation system
 '''
 # We count the number of unique users and songs in our subset of data
 users = song_df['user_id'].unique()
-print(len(users))  # return 365 unique users
+print("There are ", len(users), " unique users in the system.")  # return 365 unique users
 songs = song_df['song'].unique()
-print(len(songs))  # return 5151 unique songs
+print("There are ", len(songs), " unique songs in the system.")  # return 5151 unique songs
 
 # We then create a song recommender by splitting our dataset into training and testing data.
 train_data, test_data = train_test_split(song_df, test_size=0.20, random_state=0)
@@ -49,24 +50,30 @@ pm = Recommenders.popularity_recommender_py()
 pm.create(train_data, 'user_id', 'song')
 
 # User the popularity model to make some prediction
-user_id = users[5]
-pm.recommend(user_id)
+user_id = random.sample(list(users), 1)
+user_id = user_id[0]
 
-print(user_id)
+popularity = pm.recommend(user_id)
+
+print("\nWe will proceed now to make song recommendations using the popularity model.")
+print("\nThe user id chosen for the popularity recommendation is ", user_id)
+print("The recommendation is:")
+print(popularity)
 
 '''
 SECOND PART
 Personalized song recommendation system
 '''
 
+print("\nWe will proceed now to make song recommendations using the co-occurrence matrix model, which personalizes the recommendation to each user.")
+
 is_model = Recommenders.item_similarity_recommender_py()
 is_model.create(train_data, 'user_id', 'song')
 
-#Print the songs for the user in    training data
-user_id = users[7]
+#Print the songs for the user in training data
 user_items = is_model.get_user_items(user_id)
 #
-print("------------------------------------------------------------------------------------")
+print("\n------------------------------------------------------------------------------------")
 print("Training data songs for the user userid: %s:" % user_id)
 print("------------------------------------------------------------------------------------")
 
