@@ -1,4 +1,4 @@
-# Artificial Intelligence
+# Main project - Artificial Intelligence
 #### Álvaro Martínez Fernández
 #### Madhu Koirala
 #### University of Tromsø - 2020
